@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Article List</title>
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #ecf0f3; /* Light blue-gray background */
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+
+        .blog-container {
+            max-width: 800px;
+            margin: 20px;
+            padding: 20px;
+            background-color: #3498db; /* White background */
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .card {
+            background-color: #fff;
+            margin-bottom: 20px;
+            padding: 20px;
+            border: 2px solid #3498db; /* Blue border */
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease-in-out, border-color 0.3s ease-in-out;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .card:hover {
+            transform: scale(1.01);
+            border-color: #2980b9; /* Darker blue border on hover */
+        }
+
+        h1, h2 {
+            color: black; /* Dark blue heading */
+            text-align: center;
+        }
+
+        p {
+            color: #555; /* Dark gray text */
+            text-align: justify;
+        }
+
+        .date {
+            color: #3498db; /* Blue date */
+            text-align: right;
+        }
+
+        img,video {
+            max-width: 100%; /* Make sure the image doesn't exceed its container */
+            height: auto; /* Maintain aspect ratio */
+            border-radius: 8px; /* Optional: Add border-radius to the image */
+            margin-top: 15px; /* Adjust spacing between text and image */
+        }
+    </style>
+</head>
+<body>
+    <div class="blog-container">
+        <h1>Articles</h1>
+        {% for a in articles %}
+            <div class="card">
+                <h2>{{ a.title }}</h2>
+                <p>{{ a.body }}</p>
+                <p class="date">uploaded {{ a.date | timesince}} ago</p>
+                <!-- <img src="/media/{{ a.img }}" alt=""> -->
+                {%if a.video %}
+                <video src="/media/{{a.video}}" controls autoplay></video>
+                {%else%}
+                <img src="/media/{{a.img}}" alt="">
+                {%endif%}
+            </div>
+        {% endfor %}
+    </div>
+
+
+    <!-- <script>
+        function pauseResume(videoId) {
+            var video = document.getElementById(videoId);
+
+            if (video.paused) {
+                video.play();
+            } else {
+                video.pause();
+            }
+        }
+    </script> -->
+</body>
+</html>
